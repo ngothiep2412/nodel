@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Giáng Sinh Cùng bé Mao ❤️</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+            min-height: 100vh;
+            overflow-x: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+        }
+
+        .snowflake {
+            position: fixed;
+            top: -10px;
+            z-index: 1;
+            user-select: none;
+            cursor: pointer;
+            animation: fall linear infinite;
+            color: white;
+            font-size: 1.5em;
+            transition: all 0.3s ease;
+        }
+
+        .snowflake:hover {
+            transform: scale(1.5);
+            color: #ffd700;
+        }
+
+        .snowflake.clickable {
+            animation: glow 1s ease-in-out infinite;
+            filter: drop-shadow(0 0 10px #4fc3f7);
+        }
+
+        @keyframes fall {
+            to {
+                transform: translateY(100vh) rotate(360deg);
+            }
+        }
+
+        @keyframes glow {
+            0%, 100% { filter: drop-shadow(0 0 10px #4fc3f7); }
+            50% { filter: drop-shadow(0 0 20px #81d4fa); }
+        }
+
+        .container {
+            max-width: 800px;
+            width: 90%;
+            padding: 40px;
+            position: relative;
+            z-index: 10;
+        }
+
+        .step {
+            display: none;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 30px;
+            padding: 50px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.4);
+            text-align: center;
+            animation: fadeInScale 0.6s ease-out;
+        }
+
+        .step.active {
+            display: block;
+        }
+
+        @keyframes fadeInScale {
+            from {
+                opacity: 0;
+                transform: scale(0.8);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        h1 {
+            color: #c41e3a;
+            font-size: 2.5em;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+        }
+
+        h2 {
+            color: #e74c3c;
+            font-size: 2em;
+            margin-bottom: 25px;
+        }
+
+        p {
+            color: #333;
+            font-size: 1.2em;
+            line-height: 1.8;
+            margin-bottom: 30px;
+        }
+
+        .christmas-tree {
+            width: 200px;
+            height: 220px;
+            margin: 0 auto 30px;
+            position: relative;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        .christmas-tree:hover {
+            transform: scale(1.1);
+        }
+
+        .tree-part {
+            width: 0;
+            height: 0;
+            border-left: 50px solid transparent;
+            border-right: 50px solid transparent;
+            border-bottom: 80px solid #2d5016;
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            transition: all 0.3s ease;
+        }
+
+        .christmas-tree:hover .tree-part {
+            border-bottom-color: #3d7016;
+        }
+
+        .tree-top { top: 0; }
+        .tree-middle { 
+            top: 60px; 
+            border-left-width: 70px;
+            border-right-width: 70px;
+        }
+        .tree-bottom { 
+            top: 120px;
+            border-left-width: 90px;
+            border-right-width: 90px;
+        }
+
+        .tree-trunk {
+            width: 30px;
+            height: 40px;
+            background: #5d4037;
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            border-radius: 0 0 5px 5px;
+        }
+
+        .star {
+            position: absolute;
+            top: -25px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: #ffd700;
+            font-size: 2.5em;
+            animation: twinkle 1s ease-in-out infinite;
+        }
+
+        @keyframes twinkle {
+            0%, 100% { opacity: 1; transform: translateX(-50%) rotate(0deg); }
+            50% { opacity: 0.7; transform: translateX(-50%) rotate(180deg); }
+        }
+
+        .ornament {
+            position: absolute;
+            width: 15px;
+            height: 15px;
+            border-radius: 50%;
+            animation: pulse 1.5s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.2); }
+        }
+
+        .location-grid, .food-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-top: 30px;
+        }
+
+        .option-card {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 30px 20px;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            color: white;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+
+        .option-card:hover {
+            transform: translateY(-10px) scale(1.05);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.3);
+        }
+
+        .option-card .icon {
+            font-size: 3em;
+            margin-bottom: 15px;
+        }
+
+        .option-card .name {
+            font-size: 1.3em;
+            font-weight: bold;
+        }
+
+        .hint {
+            color: #666;
+            font-size: 1em;
+            font-style: italic;
+            margin-top: 20px;
+            animation: bounce 2s ease-in-out infinite;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .final-message {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            padding: 40px;
+            border-radius: 25px;
+            color: white;
+            margin-top: 30px;
+        }
+
+        .final-message h3 {
+            font-size: 2em;
+            margin-bottom: 20px;
+        }
+
+        .hearts-animation {
+            font-size: 2em;
+            animation: heartbeat 1.5s ease-in-out infinite;
+        }
+
+        @keyframes heartbeat {
+            0%, 100% { transform: scale(1); }
+            25% { transform: scale(1.3); }
+            50% { transform: scale(1); }
+            75% { transform: scale(1.3); }
+        }
+
+        .selected-info {
+            background: rgba(255,255,255,0.2);
+            padding: 20px;
+            border-radius: 15px;
+            margin: 20px 0;
+            backdrop-filter: blur(10px);
+        }
+
+        .emoji-float {
+            position: fixed;
+            font-size: 2em;
+            pointer-events: none;
+            animation: floatUp 3s ease-out forwards;
+            z-index: 9999;
+        }
+
+        @keyframes floatUp {
+            0% {
+                opacity: 1;
+                transform: translateY(0) rotate(0deg);
+            }
+            100% {
+                opacity: 0;
+                transform: translateY(-200px) rotate(360deg);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .container { padding: 20px; width: 95%; }
+            .step { padding: 30px 20px; }
+            h1 { font-size: 2em; }
+            h2 { font-size: 1.5em; }
+            p { font-size: 1em; }
+            .location-grid, .food-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Bước 1: Click vào cây thông -->
+        <div class="step active" id="step1">
+            <h1>🎄 Merry Christmas! 🎄</h1>
+            <p>Bé Mao yêu của Rim ơi, hãy click vào cây thông để bắt đầu hành trình Giáng sinh đặc biệt ná ❤️</p>
+            
+            <div class="christmas-tree" onclick="goToStep(2)">
+                <div class="star">⭐</div>
+                <div class="tree-part tree-top"></div>
+                <div class="tree-part tree-middle"></div>
+                <div class="tree-part tree-bottom"></div>
+                <div class="tree-trunk"></div>
+                <div class="ornament" style="background: #ff4757; top: 30px; left: 70px;"></div>
+                <div class="ornament" style="background: #ffd700; top: 50px; right: 60px;"></div>
+                <div class="ornament" style="background: #5352ed; top: 90px; left: 50px;"></div>
+                <div class="ornament" style="background: #ff6348; top: 110px; right: 70px;"></div>
+                <div class="ornament" style="background: #2ed573; top: 150px; left: 80px;"></div>
+                <div class="ornament" style="background: #ff4757; top: 140px; right: 55px;"></div>
+            </div>
+            
+            <p class="hint">👆 Click vào cây thông nè!</p>
+        </div>
+
+        <!-- Bước 2: Click vào bông tuyết -->
+        <div class="step" id="step2">
+            <h2>❄️ Tuyết Đang Rơi Kìa! ❄️</h2>
+            <p>Giáng sinh này, hãy chọn nơi mà đi chơi ná!<br>Hãy click vào bông tuyết lấp lánh để chọn địa điểm đi nhen! ✨</p>
+            <p class="hint">👆 Click vào bông tuyết sáng nhất trên màn hình!</p>
+        </div>
+
+        <!-- Bước 3: Chọn địa điểm -->
+        <div class="step" id="step3">
+            <h2>🗺️ Chúng Mình Đi Đâu Nhỉ? 🗺️</h2>
+            <p>Bé Mao muốn đi đâu chơi cùng Rim trong dịp Noel này?</p>
+            
+            <div class="location-grid">
+                <div class="option-card" onclick="selectLocation('Sài Gòn', '🏙️')">
+                    <div class="icon">🏙️</div>
+                    <div class="name">Sài Gòn</div>
+                </div>
+                <div class="option-card" onclick="selectLocation('Vũng Tàu', '🏖️')">
+                    <div class="icon">🏖️</div>
+                    <div class="name">Vũng Tàu</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Bước 4: Click bông tuyết để chọn món ăn -->
+        <div class="step" id="step4">
+            <h2>🍽️ Giờ Thì Ăn Gì Đây? 🍽️</h2>
+            <p>Đã chọn xong địa điểm rồi!<br>Bây giờ hãy click vào bông tuyết để chọn món ăn yêu thích nào! ❄️</p>
+            <div class="selected-info">
+                <p style="margin:0;">📍 Địa điểm: <strong id="selectedLocation"></strong></p>
+            </div>
+            <p class="hint">👆 Click vào bông tuyết lấp lánh nhé!</p>
+        </div>
+
+        <!-- Bước 5: Chọn món ăn -->
+        <div class="step" id="step5">
+            <h2>🍜 Em Muốn Ăn Gì? 🍜</h2>
+            <p>Rim Rim sẽ dẫn em đi ăn món em thích nhất!</p>
+            
+            <div class="food-grid">
+                <div class="option-card" onclick="selectFood('Lẩu', '🍲')">
+                    <div class="icon">🍲</div>
+                    <div class="name">Lẩu</div>
+                </div>
+                <div class="option-card" onclick="selectFood('BBQ', '🍖')">
+                    <div class="icon">🍖</div>
+                    <div class="name">BBQ</div>
+                </div>
+                <div class="option-card" onclick="selectFood('Buffet', '🍱')">
+                    <div class="icon">🍱</div>
+                    <div class="name">Buffet</div>
+                </div>
+                <div class="option-card" onclick="selectFood('Món Âu', '🍝')">
+                    <div class="icon">🍝</div>
+                    <div class="name">Món Âu</div>
+                </div>
+                <div class="option-card" onclick="selectFood('Món Hàn', '🍜')">
+                    <div class="icon">🍜</div>
+                    <div class="name">Món Hàn</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Bước 6: Lời chúc cuối cùng -->
+        <div class="step" id="step6">
+            <h1>💝 Lời Chúc Của Anh Rim 💝</h1>
+            
+            <div class="selected-info" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white;">
+                <p>📍 Địa điểm: <strong id="finalLocation"></strong></p>
+                <p style="margin-top: 10px;">🍽️ Món ăn: <strong id="finalFood"></strong></p>
+            </div>
+
+            <div class="final-message">
+                <h3>🎄 Merry Christmas Bé Mao! 🎄</h3>
+                <div class="hearts-animation">💕 💖 💗 💕</div>
+                
+                <p style="font-size: 1.2em; line-height: 1.8; margin-top: 25px;">
+                    Giáng sinh này, Rim Rim không cần những món quà xa hoa đắt tiền.<br>
+                    Điều Rim Rim mong muốn nhất là được ở bên bé Mao,<br>
+                    được cùng bé Mao đi <strong id="finalLocation2"></strong>,<br>
+                    được ngồi ăn <strong id="finalFood2"></strong> cùng nhau,<br>
+                    được nhìn nụ cười rạng rỡ của bé Mao.<br><br>
+                    
+                    Bé Mao là món quà Giáng sinh tuyệt vời nhất của Rim!<br>
+                    Rim yêu Bé Mao nhiều lắm! ❤️<br><br>
+                    
+                    Chúc Bé Mao một mùa Giáng sinh thật ấm áp và hạnh phúc!<br>
+                    Và nhớ rằng, Rim sẽ luôn ở bên Bé Mao! 🎅✨
+                </p>
+                
+                <div style="margin-top: 30px; font-size: 2em;">
+                    🎄 🎁 ❄️ 💑 🌟
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let selectedLocation = '';
+        let selectedFood = '';
+        let clickableSnowflakes = [];
+
+        // Tạo tuyết rơi
+        function createSnowflake() {
+            const snowflake = document.createElement('div');
+            snowflake.classList.add('snowflake');
+            snowflake.innerHTML = '❅';
+            snowflake.style.left = Math.random() * 100 + '%';
+            snowflake.style.animationDuration = Math.random() * 3 + 2 + 's';
+            snowflake.style.opacity = Math.random() * 0.5 + 0.5;
+            snowflake.style.fontSize = Math.random() * 1 + 1 + 'em';
+            document.body.appendChild(snowflake);
+
+            setTimeout(() => {
+                snowflake.remove();
+            }, 5000);
+        }
+
+        setInterval(createSnowflake, 300);
+
+        // Tạo bông tuyết đặc biệt có thể click
+        function createClickableSnowflake(targetStep) {
+            clickableSnowflakes.forEach(s => s.remove());
+            clickableSnowflakes = [];
+
+            for (let i = 0; i < 3; i++) {
+                setTimeout(() => {
+                    const snowflake = document.createElement('div');
+                    snowflake.classList.add('snowflake', 'clickable');
+                    snowflake.innerHTML = '❄️';
+                    snowflake.style.left = Math.random() * 80 + 10 + '%';
+                    snowflake.style.top = Math.random() * 70 + 15 + '%';
+                    snowflake.style.position = 'fixed';
+                    snowflake.style.fontSize = '3em';
+                    snowflake.style.cursor = 'pointer';
+                    snowflake.style.animation = 'none';
+                    snowflake.style.zIndex = '100';
+                    
+                    snowflake.onclick = function() {
+                        createEmojiExplosion(this);
+                        goToStep(targetStep);
+                    };
+                    
+                    document.body.appendChild(snowflake);
+                    clickableSnowflakes.push(snowflake);
+                }, i * 500);
+            }
+        }
+
+        function goToStep(stepNumber) {
+            document.querySelectorAll('.step').forEach(step => {
+                step.classList.remove('active');
+            });
+            document.getElementById('step' + stepNumber).classList.add('active');
+
+            // Tạo bông tuyết đặc biệt cho các bước cần
+            if (stepNumber === 2) {
+                setTimeout(() => createClickableSnowflake(3), 500);
+            } else if (stepNumber === 4) {
+                setTimeout(() => createClickableSnowflake(5), 500);
+            }
+
+            // Xóa bông tuyết đặc biệt khi chuyển step
+            if (stepNumber !== 2 && stepNumber !== 4) {
+                clickableSnowflakes.forEach(s => s.remove());
+                clickableSnowflakes = [];
+            }
+        }
+
+        function selectLocation(location, icon) {
+            selectedLocation = location;
+            document.getElementById('selectedLocation').innerHTML = icon + ' ' + location;
+            createEmojiExplosion(event.target, icon);
+            setTimeout(() => goToStep(4), 800);
+        }
+
+        function selectFood(food, icon) {
+            selectedFood = food;
+            document.getElementById('finalLocation').innerHTML = selectedLocation;
+            document.getElementById('finalFood').innerHTML = icon + ' ' + food;
+            document.getElementById('finalLocation2').innerHTML = selectedLocation;
+            document.getElementById('finalFood2').innerHTML = food;
+            createEmojiExplosion(event.target, icon);
+            setTimeout(() => goToStep(6), 800);
+        }
+
+        function createEmojiExplosion(element, emoji = '✨') {
+            const rect = element.getBoundingClientRect();
+            const centerX = rect.left + rect.width / 2;
+            const centerY = rect.top + rect.height / 2;
+
+            for (let i = 0; i < 12; i++) {
+                setTimeout(() => {
+                    const emojiEl = document.createElement('div');
+                    emojiEl.classList.add('emoji-float');
+                    emojiEl.innerHTML = emoji;
+                    emojiEl.style.left = centerX + 'px';
+                    emojiEl.style.top = centerY + 'px';
+                    document.body.appendChild(emojiEl);
+
+                    setTimeout(() => emojiEl.remove(), 3000);
+                }, i * 100);
+            }
+        }
+    </script>
+</body>
+</html>
